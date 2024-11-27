@@ -45,9 +45,17 @@
 
 
 <main class="container">
-    <section id="connexion-form">
-        <h2>Connexion à votre compte</h2>
+    <section id="inscription-form">
+        <h2>Inscription à StockM</h2>
         <form action="#" method="post">
+            <div class="form-group">
+                <label for="name">Nom</label>
+                <input type="text" id="name" name="name" placeholder="Entrez votre Nom" required>
+            </div>
+            <div class="form-group">
+                <label for="firstname">Prénom</label>
+                <input type="text" id="firstname" name="firstname" placeholder="Entrez votre Prénom" required>
+            </div>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
@@ -56,9 +64,9 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
             </div>
-            <button type="submit" class="btn">Se connecter</button>
+            <button type="submit" class="btn">S'inscrire</button>
             <p>Ou bien</p>
-            <button type="button" class="btn" onclick="window.location.href='inscription.html';">S'inscrire</button>
+            <button type="button" class="btn" onclick="window.location.href='connexion.html';">Se connecter</button>
         </form>
     </section>
 </main>
