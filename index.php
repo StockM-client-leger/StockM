@@ -30,13 +30,13 @@
             </div>
 
             <ul>
-                <li><a href="page/homme.html">Homme</a></li>
-                <li><a href="page/femme.html">Femme</a></li>
-                <li><a href="page/enfant.html">Enfant</a></li>
+                <li><a href="page/homme.php">Homme</a></li>
+                <li><a href="page/femme.php">Femme</a></li>
+                <li><a href="page/enfant.php">Enfant</a></li>
             </ul>
             
             <ul>
-                <li><a href="page/panier.html">Panier</a></li>
+                <li><a href="page/panier.php">Panier</a></li>
                 <?php
                 session_start();
                 if (isset($_SESSION['user_email'])) {

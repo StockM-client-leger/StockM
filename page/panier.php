@@ -97,8 +97,15 @@
         </ul>
 
         <ul>
-            <li><a href="panier.php">Panier</a></li>
-            <li><a href="connexion.html">Connexion</a></li>
+        <li><a href="panier.php">Panier</a></li>
+                <?php
+                session_start();
+                if (isset($_SESSION['user_email'])) {
+                    echo '<li><a href="/Clientleger/php/deconnexion.php">Déconnexion</a></li>';
+                } else {
+                    echo '<li><a href="/Clientleger/page/connexion.html">Connexion</a></li>';
+                }
+                ?>
         </ul>
     </nav>
 </header>
