@@ -91,13 +91,13 @@
         </div>
 
         <ul>
-            <li><a href="homme.html">Homme</a></li>
-            <li><a href="femme.html">Femme</a></li>
-            <li><a href="enfant.html">Enfant</a></li>
+            <li><a href="homme.php">Homme</a></li>
+            <li><a href="femme.php">Femme</a></li>
+            <li><a href="enfant.php">Enfant</a></li>
         </ul>
 
         <ul>
-            <li><a href="panier.html">Panier</a></li>
+            <li><a href="panier.php">Panier</a></li>
             <li><a href="connexion.html">Connexion</a></li>
         </ul>
     </nav>

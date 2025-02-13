@@ -31,13 +31,13 @@
         </div>
 
         <ul>
-            <li><a href="homme.html">Homme</a></li>
-            <li><a href="femme.html">Femme</a></li>
-            <li><a href="enfant.html">Enfant</a></li>
+            <li><a href="homme.php">Homme</a></li>
+            <li><a href="femme.php">Femme</a></li>
+            <li><a href="enfant.php">Enfant</a></li>
         </ul>
 
         <ul>
-            <li><a href="panier.html">Panier</a></li>
+            <li><a href="panier.php">Panier</a></li>
             <li><a href="connexion.html">Connexion</a></li>
         </ul>
     </nav>
@@ -45,7 +45,7 @@
     <p>Le site e-commerce de sneakers</p>
 
     <div class="product-grid">
-    <a href="">
+    <a href="chaussure.php">
         <div class="product">
             <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/gvdaqvcvmvzokrrgrcem/WMNS+AIR+MAX+PLUS.png" alt="Product 1">
             <div class="product-title">Nike Air Max Plus</div>
@@ -54,7 +54,7 @@
         </div>
     </a>
 
-        <a href="chaussure.html">
+        <a href="chaussure.php">
         <div class="product">
             <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/6da9b513-93e4-42b3-ad56-c1f52bde4da4/NIKE+AIR+MAX+PLUS.png" alt="Product 2">
             <div class="badge">Meilleure vente</div>
@@ -64,7 +64,7 @@
         </div>
     
 </a>
-        <a href="chaussure.html">
+        <a href="chaussure.php">
         <div class="product">
             <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d21ab10d-19a5-4973-9db0-9231b49955bb/NIKE+AIR+MAX+PLUS+UTILITY.png" alt="Product 3">
             <div class="product-title">Nike Air Max Plus</div>
@@ -76,7 +76,7 @@
         </div>
     </a>
 
-        <a href="chaussure.html">
+        <a href="chaussure.php">
         <div class="product">
             <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d21ab10d-19a5-4973-9db0-9231b49955bb/NIKE+AIR+MAX+PLUS+UTILITY.png" alt="Product 3">
             <div class="product-title">Nike Air Max Plus</div>
