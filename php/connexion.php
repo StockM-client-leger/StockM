@@ -1,4 +1,6 @@
 <?php
+session_start(); // Toujours mettre session_start() en tout premier
+
 include('db.php'); // Inclure le fichier de connexion à la base de données
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -13,12 +15,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $utilisateur = $stmt->fetch();
 
     if ($utilisateur && password_verify($mot_de_passe, $utilisateur['mot_de_passe'])) {
-        echo "Connexion réussie!";
-        // Rediriger vers une page protégée après la connexion
-        header("Location: ./page/index.html");
+        // Stocker l'utilisateur dans la session
+        $_SESSION['user_email'] = $email;
+
+        // Afficher le message avant la redirection
+        echo "Connexion réussie ! Vous allez être redirigé...";
+        header("Refresh: 3; url=/Clientleger/index.php");
         exit();
     } else {
-        echo "Email ou mot de passe incorrect.";
+        echo "Email ou mot de passe incorrect. Redirection en cours...";
+        header("Refresh: 3; url=/Clientleger/page/connexion.html");
+        exit();
     }
 }
 ?>

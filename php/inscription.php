@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt_check->rowCount() > 0) {
         echo "L'email est déjà utilisé. Veuillez en choisir un autre.";
+        header("Refresh: 3; url=/Clientleger/page/inscription.html"); // Attendre 2 secondes avant la redirection
     } else {
         // Insertion dans la table utilisateur
         $sql = "INSERT INTO utilisateur (nom, prenom, email, mot_de_passe) VALUES (?, ?, ?, ?)";
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Afficher un message d'inscription réussie avant la redirection
                 echo "Inscription réussie!";
                 // Redirection vers la page de connexion après un court délai
-                header("Refresh: 5; url=./page/connexion.html"); // Attendre 2 secondes avant la redirection
+                header("Refresh: 5; url=/Clientleger/page/connexion.html"); // Attendre 2 secondes avant la redirection
                 exit();
             } else {
                 echo "Erreur lors de l'exécution de la requête : " . implode(", ", $stmt->errorInfo());
