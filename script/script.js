@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('cart', JSON.stringify(cart));
 
       // Redirect to panier.html
-      window.location.href = 'panier.html';
+      window.location.href = 'panier.php';
   });
 });
 

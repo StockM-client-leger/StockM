@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
             padding: 0;
         }
 
@@ -106,6 +106,9 @@
                     echo '<li><a href="/Clientleger/page/connexion.html">Connexion</a></li>';
                 }
                 ?>
+                <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
+                    <li><a href="/Clientleger/page/admin.php">Ajouter un produit</a></li>
+                <?php endif; ?>
         </ul>
     </nav>
 </header>

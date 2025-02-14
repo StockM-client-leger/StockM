@@ -482,3 +482,177 @@ body {
     background-color: #444;
     color: yellow;
 }
+
+/* Titre de la page d'administration */
+#adminpage h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ecd90c;  /* Jaune vif pour un bon contraste */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Formulaire d'ajout de produit */
+#ajouter-produit-form h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #ecd90c;
+    margin-bottom: 30px;
+}
+
+#ajouter-produit-form .form-group {
+    margin-bottom: 15px;
+}
+
+#ajouter-produit-form label {
+    font-size: 1.2rem;
+    color: #ecd90c;
+}
+
+#ajouter-produit-form input, #ajouter-produit-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ecd90c;
+    border-radius: 5px;
+    background-color: #333;
+    color: #ecd90c;
+    display: block;  /* Permet de centrer avec margin auto */
+    margin: 0 auto;  /* Centre le bouton horizontalement */
+}
+
+
+#ajouter-produit-form button {
+    width: 10%;  /* Réduit la largeur du bouton à 50% du parent */
+    padding: 15px;
+    background-color: #ecd90c;
+    border: none;
+    color: #2d2b2b;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    display: block;  /* Permet de centrer avec margin auto */
+    margin: 0 auto;  /* Centre le bouton horizontalement */
+}
+
+#ajouter-produit-form button:hover {
+    background-color: #2d2b2b;
+    color: #ecd90c;
+}
+
+/* Liste des produits */
+#produits-list {
+    margin-top: 40px;
+    color: #ecd90c;
+    text-align: center;
+}
+
+
+/* Tableau des produits */
+#produits-list table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+#produits-list th, #produits-list td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ecd90c;
+}
+
+#produits-list th {
+    background-color: #2d2b2b;
+    color: #ecd90c;
+}
+
+#produits-list td {
+    background-color: #333;
+    color: #ecd90c;
+}
+
+/* Liens de produits */
+#produits-list td a {
+    color: #ecd90c;
+    text-decoration: none;
+}
+
+#produits-list td a:hover {
+    text-decoration: underline;
+}
+
+/* Actions (Suppression) */
+#produits-list td a.delete {
+    color: red;
+}
+
+#produits-list td a.delete:hover {
+    color: darkred;
+}
+
+/* Liste des produits */
+#produits-list {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Titre de la liste des produits */
+#produits-list h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #ecd90c;
+    margin-bottom: 30px;
+}
+
+/* Style pour la table des produits */
+#produits-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Style pour les en-têtes de la table */
+#produits-list th {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Style pour les lignes de la table */
+#produits-list td {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Survol des lignes de la table */
+#produits-list tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Lien de l'image */
+#produits-list a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#produits-list a:hover {
+    text-decoration: underline;
+}
+
+/* Style pour le bouton de suppression */
+#produits-list a[href*="supprimer"] {
+    color: red;
+    font-weight: bold;
+}
+
+#produits-list a[href*="supprimer"]:hover {
+    color: darkred;
+}
