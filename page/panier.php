@@ -71,7 +71,6 @@
 <body>
 
     <div id="mouse-light"></div>
-
   <div aria-disabled id="hidden-text">
     <h1>StockM Sneakers</h1>
     <h1>Sneakers StockM</h1>
@@ -112,7 +111,6 @@
         </ul>
     </nav>
 </header>
-    <p>Le site e-commerce de sneakers</p>
 
     <div class="cart-container"></div>
 

@@ -122,6 +122,16 @@ $produits = $stmt->fetchAll();
                 <input type="url" id="lien" name="lien" placeholder="https://example.com/image.jpg" required>
             </div>
 
+            <div class="form-group">
+                <label for="prix_promo">Prix en promotion</label>
+                <input type="number" id="prix_promo" name="prix_promo" step="0.01">
+            </div>
+
+            <div class="form-group">
+                <label for="meilleur_vente">Meilleur vente</label>
+                <input type="number" id="meilleur_vente" name="meilleur_vente" placeholder="0 ou 1" >
+            </div>
+
             <button type="submit" name="ajouter_produit" class="btn">Ajouter</button>
         </form>
     </div>
@@ -142,6 +152,8 @@ $produits = $stmt->fetchAll();
                 <th>Taille</th>
                 <th>Genre</th>
                 <th>Lien</th>
+                <th>Prix promo</th>
+                <th>Meilleur vente</th>
                 <th>Action</th>
             </tr>
             <?php foreach ($produits as $produit): ?>
@@ -153,6 +165,8 @@ $produits = $stmt->fetchAll();
                     <td><?= htmlspecialchars($produit['taille']) ?></td>
                     <td><?= htmlspecialchars($produit['genre']) ?></td>
                     <td><a href="<?= htmlspecialchars($produit['lien']) ?>">Voir</a></td>
+                    <td><?= htmlspecialchars($produit['prix_promo']) ?></td>
+                    <td><?= htmlspecialchars($produit['meilleur_vente']) ?></td>
                     <td>
                         <!-- Lien pour supprimer le produit -->
                         <a href="admin.php?supprimer=<?= $produit['id_produit'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">Supprimer</a>

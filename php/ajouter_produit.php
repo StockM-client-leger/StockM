@@ -7,7 +7,7 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
     header("Location: /Clientleger/index.php");
     exit();
 }
-
+    
 // Ajouter un produit
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ajouter_produit'])) {
     // Récupération des données du formulaire
@@ -17,17 +17,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ajouter_produit'])) {
     $taille = $_POST['taille'];
     $genre = $_POST['genre'];
     $lien = $_POST['lien'];
+    $prix_promo = isset($_POST['prix_promo']) && $_POST['prix_promo'] !== "" ? $_POST['prix_promo'] : NULL;
+    $meilleur_vente = isset($_POST['meilleur_vente']) && $_POST['meilleur_vente'] !== "" ? $_POST['meilleur_vente'] : 0;
 
     // Vérification des champs
     if (empty($nom) || empty($description) || empty($prix) || empty($taille) || empty($genre) || empty($lien)) {
         echo "Tous les champs doivent être remplis.";
     } else {
         // Requête d'insertion dans la base de données
-        $sql = "INSERT INTO produit (nom, description, prix, taille, genre, lien) 
-                VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO produit (nom, description, prix, taille, genre, lien, prix_promo, meilleur_vente) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
 
-        if ($stmt->execute([$nom, $description, $prix, $taille, $genre, $lien])) {
+        if ($stmt->execute([$nom, $description, $prix, $taille, $genre, $lien, $prix_promo, $meilleur_vente])) {
             echo "Produit ajouté avec succès !";
             // Rediriger vers la page d'administration après l'ajout
             header("Location: ../page/admin.php");

@@ -656,3 +656,7 @@ body {
 #produits-list a[href*="supprimer"]:hover {
     color: darkred;
 }
+
+p {
+    color: #ecd90c;
+}
