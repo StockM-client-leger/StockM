@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ajouter_produit'])) {
     } else {
         // Requête d'insertion dans la base de données
         $sql = "INSERT INTO produit (nom, description, prix, genre, lien, prix_promo, meilleur_vente) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
 
         if ($stmt->execute([$nom, $description, $prix, $genre, $lien, $prix_promo, $meilleur_vente])) {

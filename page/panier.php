@@ -1,3 +1,8 @@
+<?php
+session_start();
+require_once '../php/db.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +12,17 @@
     <link rel="stylesheet" href="../style/style.css">
     <script src="../script/script.js" defer></script>
 </head>
+<div id="mouse-light"></div>
 
+<div aria-disabled id="hidden-text">
+  <h1>StockM Sneakers</h1>
+  <h1>Sneakers StockM</h1>
+  <h1>Air Jordan 4 Dunk Low</h1>
+  <h1>Dunk Low Air Jordan 4</h1>
+  <h1>Air Max Plus Dunk Low</h1>
+  <h1>NB 1906R Air Max Plus</h1>
+  <h1>Air Force One NB 1906R</h1>
+</div>
 <body>
 
     <header>
@@ -38,9 +53,6 @@
 
     <div class="cart-container">
         <?php
-        require_once '../php/db.php';
-        session_start();
-
         if (!isset($_SESSION['id_utilisateur'])) {
             die("Vous devez être connecté pour voir votre panier.");
         }

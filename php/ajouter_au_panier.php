@@ -32,7 +32,8 @@ $stmt->bindParam(':taille', $taille, PDO::PARAM_STR);
 
 // Exécuter la requête
 if ($stmt->execute()) {
-    echo "Produit ajouté au panier avec succès.";
+    echo "Produit ajouté au panier avec succès. vous allez être redirigé au panier.";
+    header("Refresh: 2; url=/Clientleger/page/panier.php");
 } else {
     echo "Erreur lors de l'ajout au panier.";
 }
