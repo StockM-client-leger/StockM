@@ -660,3 +660,218 @@ body {
 p {
     color: #ecd90c;
 }
+
+/* Conteneur du produit */
+.product-container {
+    display: flex;
+    flex-direction: row;
+    background-color: #1d1c1c; /* Fond sombre pour correspondre au thème */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 1200px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Image du produit */
+.product-images img {
+    max-width: 500px;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Détails du produit */
+.product-details {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #ecd90c; /* Texte en jaune pour correspondre au thème */
+}
+
+/* Nom du produit */
+#product-name {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Description */
+.description {
+    font-size: 16px;
+    color: #ffffff; /* Texte gris pour la description */
+    margin-bottom: 20px;
+}
+
+/* Prix */
+.price {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+/* Prix promo (si disponible) */
+.price s {
+    color: #d9534f;
+    text-decoration: line-through;
+}
+
+.price strong {
+    color: #14af00;
+}
+
+/* Taille des chaussures */
+.sizes button {
+    background-color: #3a3a3a;
+    color: #ecd90c; /* Jaune pour les tailles */
+    border: 1px solid #ecd90c;
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.sizes button:hover {
+    background-color: #ecd90c;
+    color: #2d2b2b;
+    border-color: #2d2b2b;
+}
+
+/* Actions */
+.actions button {
+    background-color: #ecd90c;
+    color: #2d2b2b; /* Jaune pour les boutons */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.actions button:hover {
+    background-color: #2d2b2b;
+    color: #ecd90c;
+    border-color: #2d2b2b;
+}
+
+.product-details .price {
+    color: white
+}
+
+
+/* Conteneur principal du panier */
+.main-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.product-item {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Conteneur des articles du panier */
+
+
+/* Style pour l'image */
+.product-item img {
+    max-width: 150px;
+    height: auto;
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+/* Détails du produit */
+.product-item .product-details {
+    flex: 1;
+}
+/* Titre du produit */
+.product-item h2 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+/* Prix */
+.product-item .price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Prix promo */
+.product-item .price-promo {
+    font-size: 1.1rem;
+    color: #e74c3c;
+    text-decoration: line-through;
+}
+
+/* Taille du produit */
+.product-item p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+/* Formulaire de suppression */
+.product-item form {
+    margin-top: 10px;
+}
+
+/* Bouton de suppression */
+.product-item button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-item button:hover {
+    background-color: #c0392b;
+}
+
+/* S'assurer que le header n'est pas superposé */
+header {
+    z-index: 10; /* Place le header au-dessus des autres contenus */
+    position: relative; /* Permet au z-index de fonctionner correctement */
+    margin-bottom: 20px; /* Ajoute une marge sous le header pour éviter qu'il soit collé au contenu */
+}
+
+.cart-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.product-details h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #ecd90c;
+}
+
+.product-details p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #fff;
+}
+
+button {
+    background-color: #ecd90c;
+    color: #2d2b2b;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+

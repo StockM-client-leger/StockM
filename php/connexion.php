@@ -9,14 +9,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mot_de_passe = $_POST['mot_de_passe'];
 
     // Requête pour récupérer l'utilisateur avec l'email donné
-    $sql = "SELECT * FROM utilisateur WHERE email = ?";
+    $sql = "SELECT id_utilisateur, email, mot_de_passe FROM utilisateur WHERE email = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$email]);
     $utilisateur = $stmt->fetch();
 
     if ($utilisateur && password_verify($mot_de_passe, $utilisateur['mot_de_passe'])) {
-        // Stocker l'email dans la session
+        // Stocker l'email et l'ID de l'utilisateur dans la session
         $_SESSION['user_email'] = $email;
+        $_SESSION['id_utilisateur'] = $utilisateur['id_utilisateur']; // Assure-toi que cette colonne existe dans ta base 
+
+        // Vérifie si 'id_utilisateur' est bien stocké dans la session
+        var_dump($_SESSION); // Ceci permettra de vérifier si id_utilisateur est bien défini
 
         // Vérifier si l'email est "Admin@gmail.com"
         if ($_SESSION['user_email'] === 'Admin@gmail.com') {

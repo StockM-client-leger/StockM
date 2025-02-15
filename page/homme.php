@@ -18,7 +18,17 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <script src="../script/script.js" defer></script>
 </head>
 <body>
+<div id="mouse-light"></div>
 
+  <div aria-disabled id="hidden-text">
+    <h1>StockM Sneakers</h1>
+    <h1>Sneakers StockM</h1>
+    <h1>Air Jordan 4 Dunk Low</h1>
+    <h1>Dunk Low Air Jordan 4</h1>
+    <h1>Air Max Plus Dunk Low</h1>
+    <h1>NB 1906R Air Max Plus</h1>
+    <h1>Air Force One NB 1906R</h1>
+  </div>
 <header>
     <nav>
         <div class="logo-container">

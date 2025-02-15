@@ -66,17 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const cartItem = document.createElement('div');
       cartItem.classList.add('cart-item');
 
-      cartItem.innerHTML = `
-          <img src="/path/to/shoe1.jpg" alt="Chaussure">
-          <div class="cart-details">
-              <h3>${item.model}</h3>
-              <p>Taille : ${item.size}</p>
-              <p>${item.price}</p>
-          </div>
-          <div class="cart-actions">
-              <button class="remove-item">Supprimer</button>
-          </div>
-      `;
+     
 
       cartContainer.appendChild(cartItem);
 

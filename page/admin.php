@@ -108,11 +108,6 @@ $produits = $stmt->fetchAll();
             </div>
 
             <div class="form-group">
-                <label for="taille">Taille</label>
-                <input type="number" id="taille" name="taille" step="0.01" required>
-            </div>
-
-            <div class="form-group">
                 <label for="genre">Genre du produit</label>
                 <input type="text" id="genre" name="genre" required>
             </div>
@@ -149,7 +144,6 @@ $produits = $stmt->fetchAll();
                 <th>Nom</th>
                 <th>Description</th>
                 <th>Prix</th>
-                <th>Taille</th>
                 <th>Genre</th>
                 <th>Lien</th>
                 <th>Prix promo</th>
@@ -162,7 +156,6 @@ $produits = $stmt->fetchAll();
                     <td><?= htmlspecialchars($produit['nom']) ?></td>
                     <td><?= htmlspecialchars($produit['description']) ?></td>
                     <td><?= htmlspecialchars($produit['prix']) ?> €</td>
-                    <td><?= htmlspecialchars($produit['taille']) ?></td>
                     <td><?= htmlspecialchars($produit['genre']) ?></td>
                     <td><a href="<?= htmlspecialchars($produit['lien']) ?>">Voir</a></td>
                     <td><?= htmlspecialchars($produit['prix_promo']) ?></td>
