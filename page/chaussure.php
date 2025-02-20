@@ -4,6 +4,7 @@ require_once '../php/db.php'; // Assure-toi que ce chemin est correct
 // Vérifie si l'ID est bien passé dans l'URL
 if (isset($_GET['id_produit'])) {
     $product_id = intval($_GET['id_produit']); // Convertit en entier pour éviter les erreurs
+    $origine = isset($_GET['origine']) ? $_GET['origine'] : 'homme';
 } else {
     die("ID du produit manquant."); // Arrête l'exécution et affiche un message d'erreur
 }
@@ -18,6 +19,14 @@ try {
     if (!$product) {
         die("Produit non trouvé.");
     }
+    $tailles_disponibles = [
+        'homme' => ['EU 40', 'EU 41', 'EU 42', 'EU 43', 'EU 44', 'EU 45'],
+        'femme' => ['EU 36', 'EU 37', 'EU 38', 'EU 39', 'EU 40'],
+        'enfant' => ['EU 28', 'EU 30', 'EU 32', 'EU 34', 'EU 36']
+    ];
+    
+    // Sélection des tailles selon la page d'origine
+    $tailles = $tailles_disponibles[$origine] ?? $tailles_disponibles['homme'];
 } catch (PDOException $e) {
     die("Erreur de requête : " . $e->getMessage());
 }
@@ -99,12 +108,10 @@ try {
                 <form action="../php/ajouter_au_panier.php" method="POST">
                     <h3>Choisir une taille :</h3>
                     <div class="sizes">
-                        <button type="button" class="size-btn" data-size="EU 36">EU 36</button>
-                        <button type="button" class="size-btn" data-size="EU 37">EU 37</button>
-                        <button type="button" class="size-btn" data-size="EU 38">EU 38</button>
-                        <button type="button" class="size-btn" data-size="EU 39">EU 39</button>
-                        <button type="button" class="size-btn" data-size="EU 40">EU 40</button>
-                    </div>
+    <?php foreach ($tailles as $taille): ?>
+        <button type="button" class="size-btn" data-size="<?php echo $taille; ?>"><?php echo $taille; ?></button>
+    <?php endforeach; ?>
+</div>
 
                     <!-- Champ caché pour la taille -->
                     <input type="hidden" name="taille" id="selected-size" required>

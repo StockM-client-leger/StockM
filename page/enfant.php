@@ -56,7 +56,7 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="product-grid">
     <?php if (!empty($produits)): ?>
         <?php foreach ($produits as $produit): ?>
-            <a href="chaussure.php?id_produit=<?= htmlspecialchars($produit['id_produit']) ?>">
+            <a href="chaussure.php?id_produit=<?= htmlspecialchars($produit['id_produit']) ?>&origine=enfant">
                 <div class="product">
                     <img src="<?= htmlspecialchars($produit['lien']) ?>" alt="<?= htmlspecialchars($produit['nom']) ?>">
 
