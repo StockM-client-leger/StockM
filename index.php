@@ -54,29 +54,3 @@
         </nav>
     </header>
 
-
-    <main class="container">
-        <section id="presentation">
-            <h2>Présentation de StockM</h2>
-            <p>StockM est une entreprise spécialisée dans la revente de sneakers rares et recherchées. Basée à Paris, notre mission est de rendre ces modèles d’exception accessibles à tous, partout en France. Nous nous adressons particulièrement aux amateurs de mode streetwear, âgés de 18 à 25 ans, à la recherche de pièces uniques qui reflètent leur style.</p>
-            <p>Avec notre site e-commerce, StockM vise à offrir une expérience d'achat fluide et pratique. Plus besoin de se déplacer : nos clients peuvent désormais commander leurs sneakers préférées depuis le confort de leur domicile et profiter de notre service de livraison rapide.</p>
-            <ul>
-                <li><strong>Exclusivité :</strong> Proposer des modèles rares et en éditions limitées.</li>
-                <li><strong>Qualité :</strong> Garantir des produits authentiques et de haute qualité.</li>
-                <li><strong>Accessibilité :</strong> Faciliter l'accès à des sneakers emblématiques à travers une interface simple et intuitive.</li>
-            </ul>
-            <p>Rejoignez StockM et découvrez une collection exclusive de sneakers, soigneusement sélectionnées pour vous.</p>
-        </section>
-    
-        <section id="promotion">
-            <h2>Promotions</h2>
-            <p>Découvrez nos dernières offres sur les sneakers les plus recherchées !</p>
-            <a href="#" class="btn">Voir les promotions</a>
-        </section>
-    </main>
-
-    <footer>
-         2024 StockM. Tous droits réservés à moi.
-    </footer>
-</body>
-</html>

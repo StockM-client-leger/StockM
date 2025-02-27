@@ -31,11 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Afficher le message avant la redirection
         echo "Connexion réussie ! Vous allez être redirigé...";
-        header("Refresh: 3; url=/Clientleger/index.php");
+        header("Refresh: 0; url=/Clientleger/index.php");
         exit();
     } else {
         echo "Email ou mot de passe incorrect. Redirection en cours...";
-        header("Refresh: 3; url=/Clientleger/page/connexion.html");
+        header("Refresh: 0; url=/Clientleger/page/connexion.html");
         exit();
     }
 }
