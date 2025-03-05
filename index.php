@@ -40,8 +40,8 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
             border-radius: 10px;
         }
         .image-box img {
-            width: 300px;
-            height: auto;
+            width: 230px;
+            height: 300;
             border-radius: 10px;
             transition: transform 0.3s;
         }
