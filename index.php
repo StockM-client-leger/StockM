@@ -15,6 +15,7 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,6 +31,7 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
             gap: 20px;
             padding: 20px;
         }
+
         .text-box {
             font-size: 1.5em;
             font-weight: bold;
@@ -39,22 +41,25 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
             padding: 10px;
             border-radius: 10px;
         }
+
         .image-box img {
             width: 230px;
             height: 300;
             border-radius: 10px;
             transition: transform 0.3s;
         }
+
         .image-box img:hover {
             transform: scale(1.1);
         }
     </style>
 </head>
+
 <body>
     <header>
         <nav>
             <div class="logo-container">
-                <img src="image/stockm.jpg.webp" alt="logo STOCKM" id="logo"/>
+                <img src="image/stockm.jpg.webp" alt="logo STOCKM" id="logo" />
             </div>
             <ul>
                 <li><a href="page/homme.php">Homme</a></li>
@@ -67,6 +72,9 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <li><a href="/Clientleger/php/deconnexion.php">Déconnexion</a></li>
                 <?php else: ?>
                     <li><a href="/Clientleger/page/connexion.html">Connexion</a></li>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
+                    <li><a href="/Clientleger/page/admin.php">Ajouter un produit</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
@@ -88,4 +96,5 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="text-box" style="color: #00ffcc; font-size: 2em;">Nouvelles collections disponibles !</div>
     </section>
 </body>
+
 </html>
