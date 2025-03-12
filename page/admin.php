@@ -40,6 +40,44 @@ $produits = $stmt->fetchAll();
     <title>STOCK M</title>
     <link rel="stylesheet" href="../style/style.css">
     <script src="../script/script.js" defer></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const fields = form.querySelectorAll("input[required], textarea[required]");
+
+        fields.forEach(field => {
+            let errorMessage = document.createElement("span");
+            errorMessage.classList.add("error-message");
+            errorMessage.innerText = "Ce champ est obligatoire";
+            errorMessage.style.display = "block";
+            errorMessage.style.color = "red";
+            errorMessage.style.fontSize = "0.9em";
+            field.parentNode.appendChild(errorMessage);
+
+            field.addEventListener("input", function () {
+                if (field.value.trim() !== "") {
+                    errorMessage.style.display = "none";
+                } else {
+                    errorMessage.style.display = "block";
+                }
+            });
+        });
+
+        form.addEventListener("submit", function (event) {
+            let isValid = true;
+            fields.forEach(field => {
+                if (field.value.trim() === "") {
+                    field.nextSibling.style.display = "block";
+                    isValid = false;
+                }
+            });
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
 </head>
 
 <body>
@@ -94,7 +132,7 @@ $produits = $stmt->fetchAll();
         <form action="../php/ajouter_produit.php" method="post">
             <div class="form-group">
                 <label for="nom">Nom du produit</label>
-                <input type="text" id="nom" name="nom" required>
+                <textarea type="text" id="nom" name="nom" required></textarea>
             </div>
 
             <div class="form-group">
@@ -109,22 +147,22 @@ $produits = $stmt->fetchAll();
 
             <div class="form-group">
                 <label for="genre">Genre du produit</label>
-                <input type="text" id="genre" name="genre" required>
+                <textarea type="text" id="genre" name="genre" required></textarea>
             </div>
 
             <div class="form-group">
                 <label for="lien">Lien de l'image</label>
-                <input type="url" id="lien" name="lien" placeholder="https://example.com/image.jpg" required>
+                <textarea type="url" id="lien" name="lien" placeholder="https://example.com/image.jpg" required></textarea>
             </div>
 
             <div class="form-group">
                 <label for="prix_promo">Prix en promotion</label>
-                <input type="number" id="prix_promo" name="prix_promo" step="0.01">
+                <input type="number" id="prix_promo" name="prix_promo" step="0.01" required>
             </div>
 
             <div class="form-group">
                 <label for="meilleur_vente">Meilleur vente</label>
-                <input type="number" id="meilleur_vente" name="meilleur_vente" placeholder="0 ou 1" >
+                <input type="number" id="meilleur_vente" name="meilleur_vente" placeholder="0 ou 1" required>
             </div>
 
             <button type="submit" name="ajouter_produit" class="btn">Ajouter</button>
