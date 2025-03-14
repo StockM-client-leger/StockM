@@ -3,7 +3,7 @@ session_start();
 require '../php/db.php'; // Assure-toi que ce fichier contient ta connexion PDO
 
 // Récupérer les produits pour la catégorie "Homme"
-$sql = "SELECT * FROM produit WHERE genre = 'Homme'";
+$sql = "SELECT * FROM modele WHERE genre = 'Homme'";
 $stmt = $pdo->query($sql);
 $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -56,7 +56,7 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="product-grid">
     <?php if (!empty($produits)): ?>
         <?php foreach ($produits as $produit): ?>
-            <a href="chaussure.php?id_produit=<?= htmlspecialchars($produit['id_produit']) ?>&origine=homme">
+            <a href="chaussure.php?id_modele=<?= htmlspecialchars($produit['id_modele']) ?>&origine=homme">
                 <div class="product">
                     <img src="<?= htmlspecialchars($produit['lien']) ?>" alt="<?= htmlspecialchars($produit['nom']) ?>">
 

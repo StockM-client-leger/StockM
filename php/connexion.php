@@ -18,23 +18,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Stocker l'email et l'ID de l'utilisateur dans la session
         $_SESSION['user_email'] = $email;
         $_SESSION['id_utilisateur'] = $utilisateur['id_utilisateur']; // Assure-toi que cette colonne existe dans ta base 
-
-        // Vérifie si 'id_utilisateur' est bien stocké dans la session
-        var_dump($_SESSION); // Ceci permettra de vérifier si id_utilisateur est bien défini
-
-        // Vérifier si l'email est "Admin@gmail.com"
-        if ($_SESSION['user_email'] === 'Admin@gmail.com') {
-            $_SESSION['is_admin'] = true; // Si l'email est Admin@gmail.com, on définit un flag
-        } else {
-            $_SESSION['is_admin'] = false; // Sinon, on définit le flag comme false
-        }
+        $_SESSION['is_admin'] = ($email === 'Admin@gmail.com');
 
         // Afficher le message avant la redirection
-        echo "Connexion réussie ! Vous allez être redirigé...";
+        echo "Connexion réussie !";
         header("Refresh: 0; url=/Clientleger/index.php");
         exit();
     } else {
-        echo "Email ou mot de passe incorrect. Redirection en cours...";
+        echo "Email ou mot de passe incorrect.";
         header("Refresh: 0; url=/Clientleger/page/connexion.html");
         exit();
     }

@@ -7,8 +7,8 @@ if (!$pdo) {
     die("Erreur de connexion à la base de données.");
 }
 
-// Récupération de plusieurs produits (ex: 6 derniers produits ajoutés)
-$sql = "SELECT id_produit, nom, lien FROM produit ORDER BY id_produit DESC LIMIT 6";
+// Récupération de tous les produits
+$sql = "SELECT id_modele, nom, lien, prix, prix_promo FROM modele ORDER BY id_modele DESC";
 $stmt = $pdo->query($sql);
 $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -80,21 +80,80 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </nav>
     </header>
 
-    <section class="content-container">
-        <div class="text-box">Découvrez les meilleures sneakers du moment !</div>
-        <?php if (!empty($produits)): ?>
-            <?php foreach ($produits as $produit): ?>
-                <div class="image-box">
-                    <a href="page/chaussure.php?id_produit=<?= htmlspecialchars($produit['id_produit']) ?>">
-                        <img src="<?= htmlspecialchars($produit['lien']) ?>" alt="<?= htmlspecialchars($produit['nom']) ?>">
+    <h1 class="carousel-title"><span>Nos chaussures disponibles !</span></h1>
+    
+    <div class="carousel-container">
+        <div class="carousel">
+            <?php foreach ($produits as $index => $produit): ?>
+                <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                    <a href="page/chaussure.php?id_modele=<?= htmlspecialchars($produit['id_modele']) ?>">
+                        <img src="<?= htmlspecialchars($produit['lien']) ?>" 
+                             alt="<?= htmlspecialchars($produit['nom']) ?>">
+                        <div class="carousel-info">
+                            <h3><?= htmlspecialchars($produit['nom']) ?></h3>
+                            <div class="carousel-price">
+                                <?php if (!empty($produit['prix_promo'])): ?>
+                                    <span class="original-price"><?= number_format($produit['prix'], 2) ?> €</span>
+                                    <span class="promo-price"><?= number_format($produit['prix_promo'], 2) ?> €</span>
+                                <?php else: ?>
+                                    <?= number_format($produit['prix'], 2) ?> €
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </a>
                 </div>
             <?php endforeach; ?>
-        <?php else: ?>
-            <p>Aucun produit disponible.</p>
-        <?php endif; ?>
-        <div class="text-box" style="color: #00ffcc; font-size: 2em;">Nouvelles collections disponibles !</div>
-    </section>
+        </div>
+        <div class="carousel-controls">
+            <button class="carousel-control" id="prevBtn">&lt;</button>
+            <button class="carousel-control" id="nextBtn">&gt;</button>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const carousel = document.querySelector('.carousel');
+        const items = document.querySelectorAll('.carousel-item');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentIndex = 0;
+        const itemWidth = items[0].offsetWidth + 30; // Width + margin
+        const visibleItems = 3;
+
+        function updateCarousel() {
+            const newTransform = -currentIndex * itemWidth;
+            carousel.style.transform = `translateX(${newTransform}px)`;
+
+            // Update active class
+            items.forEach(item => item.classList.remove('active'));
+            items[currentIndex].classList.add('active');
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < items.length - visibleItems) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+
+        // Auto scroll
+        setInterval(() => {
+            if (currentIndex < items.length - visibleItems) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateCarousel();
+        }, 5000);
+    });
+    </script>
 </body>
 
 </html>

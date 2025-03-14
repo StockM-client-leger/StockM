@@ -2,8 +2,8 @@
 session_start();
 require '../php/db.php'; // Assure-toi que ce fichier contient ta connexion PDO
 
-// Récupérer les produits pour la catégorie "Homme"
-$sql = "SELECT * FROM produit WHERE genre = 'Enfant'";
+// Récupérer les produits pour la catégorie "Enfant"
+$sql = "SELECT * FROM modele WHERE genre = 'Enfant'";
 $stmt = $pdo->query($sql);
 $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -13,7 +13,7 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STOCK M - Homme</title>
+    <title>STOCK M - Enfant</title>
     <link rel="stylesheet" href="../style/style.css">
     <script src="../script/script.js" defer></script>
 </head>
@@ -56,7 +56,7 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="product-grid">
     <?php if (!empty($produits)): ?>
         <?php foreach ($produits as $produit): ?>
-            <a href="chaussure.php?id_produit=<?= htmlspecialchars($produit['id_produit']) ?>&origine=enfant">
+            <a href="chaussure.php?id_modele=<?= htmlspecialchars($produit['id_modele']) ?>&origine=enfant">
                 <div class="product">
                     <img src="<?= htmlspecialchars($produit['lien']) ?>" alt="<?= htmlspecialchars($produit['nom']) ?>">
 

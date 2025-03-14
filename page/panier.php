@@ -57,9 +57,11 @@ require_once '../php/db.php';
             die("Vous devez être connecté pour voir votre panier.");
         }
 
-        $query = "SELECT p.nom, p.prix, p.prix_promo, p.lien, c.taille, c.id_panier FROM panier c 
-                  INNER JOIN produit p ON c.id_produit = p.id_produit 
-                  WHERE c.id_utilisateur = :id_utilisateur";
+        $query = "SELECT m.nom, m.prix, m.prix_promo, m.lien, c.id_taille, p.id_panier 
+                  FROM panier p 
+                  INNER JOIN commande c ON p.id_panier = c.id_panier 
+                  INNER JOIN modele m ON c.id_modele = m.id_modele 
+                  WHERE p.id_utilisateur = :id_utilisateur";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':id_utilisateur', $_SESSION['id_utilisateur'], PDO::PARAM_INT);
         $stmt->execute();
@@ -77,7 +79,7 @@ require_once '../php/db.php';
                     <?php if ($produit['prix_promo'] > 0): ?>
                         <p>Prix promo : <?php echo number_format($produit['prix_promo'], 2, ',', ' ') . " €"; ?></p>
                     <?php endif; ?>
-                    <p>Taille : <?php echo htmlspecialchars($produit['taille']); ?></p>
+                    <p>Taille : <?php echo htmlspecialchars($produit['id_taille']); ?></p>
                 </div>
                 <form action="../php/supprimer_du_panier.php" method="POST">
                     <input type="hidden" name="id_panier" value="<?php echo $produit['id_panier']; ?>">

@@ -1,44 +1,32 @@
 <?php
-session_start(); // Démarre la session
+session_start();
 
-// Vérifie si l'utilisateur est connecté
-if (!isset($_SESSION['user_email'])) {
+if (!isset($_SESSION['user_email']) || !isset($_SESSION['id_utilisateur'])) {
     die("Vous devez être connecté pour ajouter un produit au panier.");
 }
 
-// Vérifie si l'ID de l'utilisateur est bien dans la session
-if (!isset($_SESSION['id_utilisateur'])) {
-    die("Vous devez être connecté pour ajouter un produit au panier.");
-}
+include('db.php');
 
-// Affiche le contenu de la session pour vérifier
-var_dump($_SESSION); // Vérifie le contenu de la session
+try {
+    // Créer un nouveau panier si nécessaire
+    $query = "INSERT INTO panier (dateh_panier, id_utilisateur) VALUES (NOW(), :id_utilisateur)";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute(['id_utilisateur' => $_SESSION['id_utilisateur']]);
+    $id_panier = $pdo->lastInsertId();
 
-include('db.php'); // Assure-toi que la connexion à la base de données est incluse
+    // Ajouter le produit à la commande
+    $query = "INSERT INTO commande (id_panier, id_modele, id_taille, qte) 
+              VALUES (:id_panier, :id_modele, :id_taille, 1)";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([
+        'id_panier' => $id_panier,
+        'id_modele' => $_POST['id_modele'],
+        'id_taille' => $_POST['taille']
+    ]);
 
-// Récupère l'ID du produit, la taille et l'ID de l'utilisateur
-$id_produit = $_POST['id_produit'];
-$id_utilisateur = $_SESSION['id_utilisateur']; 
-$taille = $_POST['taille'];
-
-// Prépare la requête SQL pour insérer dans le panier
-$query = "INSERT INTO panier (id_utilisateur, id_produit, taille) VALUES (:id_utilisateur, :id_produit, :taille)";
-$stmt = $pdo->prepare($query);
-
-// Lier les paramètres
-$stmt->bindParam(':id_utilisateur', $id_utilisateur, PDO::PARAM_INT);
-$stmt->bindParam(':id_produit', $id_produit, PDO::PARAM_INT);
-$stmt->bindParam(':taille', $taille, PDO::PARAM_STR);
-
-// Exécuter la requête
-if ($stmt->execute()) {
-    echo "Produit ajouté au panier avec succès. vous allez être redirigé au panier.";
+    echo "Produit ajouté au panier avec succès.";
     header("Refresh: 0; url=/Clientleger/page/panier.php");
-} else {
-    echo "Erreur lors de l'ajout au panier.";
+} catch (PDOException $e) {
+    echo "Erreur lors de l'ajout au panier: " . $e->getMessage();
 }
-
-// Fermer la requête
-$stmt = null;
-$pdo = null; // Fermer également la connexion PDO
 ?>

@@ -872,3 +872,180 @@ button {
     margin-top: 10px;
 }
 
+.sizes-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.size-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.size-checkbox input[type="checkbox"] {
+    margin: 0;
+}
+
+.size-checkbox label {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Styles pour le carrousel */
+.carousel-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    position: relative;
+    overflow: hidden; /* Remis à hidden */
+    padding: 20px 60px; /* Augmenté le padding latéral pour les boutons */
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.carousel-control {
+    position: absolute; /* Position absolue pour sortir du flux */
+    background: #ecd90c;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    color: #2d2b2b;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+}
+
+/* Positionnement spécifique pour chaque bouton */
+#prevBtn {
+    left: 10px; /* Position à gauche */
+}
+
+#nextBtn {
+    right: 10px; /* Position à droite */
+}
+
+.carousel-control:hover {
+    background: #2d2b2b;
+    color: #ecd90c;
+    border: 2px solid #ecd90c;
+}
+
+.carousel-item {
+    min-width: 300px;
+    margin: 0 15px;
+    opacity: 0.7;
+    transition: all 0.5s ease;
+    transform: scale(0.9);
+}
+
+.carousel-item.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(236, 217, 12, 0.2);
+}
+
+.carousel-info {
+    background: rgba(45, 43, 43, 0.9);
+    padding: 15px;
+    border-radius: 0 0 15px 15px;
+    text-align: center;
+    color: #ecd90c;
+}
+
+.carousel-info h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.carousel-price {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    left: 0; /* Ajouté */
+    right: 0; /* Ajouté */
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px; /* Réduit le padding */
+    z-index: 10;
+    pointer-events: none; /* Ajouté */
+}
+
+.carousel-control {
+    background: #ecd90c;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    color: #2d2b2b;
+    transition: all 0.3s ease;
+    pointer-events: auto; /* Ajouté */
+    position: relative; /* Ajouté */
+    z-index: 20; /* Ajouté */
+}
+
+.carousel-control:hover {
+    background: #2d2b2b;
+    color: #ecd90c;
+    border: 2px solid #ecd90c;
+}
+
+/* Style pour le titre du carousel */
+.carousel-title {
+    text-align: center;
+    color: #ecd90c;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 20px 0;
+}
+
+.carousel-title span {
+    border-bottom: 3px solid #ecd90c;
+    padding-bottom: 10px;
+}
+

@@ -1,41 +1,31 @@
 <?php
-session_start(); // Démarre la session
+session_start();
 
-// Vérifie si l'utilisateur est connecté
-if (!isset($_SESSION['user_email'])) {
+if (!isset($_SESSION['user_email']) || !isset($_SESSION['id_utilisateur'])) {
     die("Vous devez être connecté pour supprimer un produit du panier.");
 }
 
-// Vérifie si l'ID de l'utilisateur est bien dans la session
-if (!isset($_SESSION['id_utilisateur'])) {
-    die("Vous devez être connecté pour supprimer un produit du panier.");
-}
-
-// Vérifie si l'ID du panier est bien reçu via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_panier'])) {
-    $id_panier = $_POST['id_panier']; // Récupère l'ID du panier à supprimer
+    include('db.php');
 
-    include('db.php'); // Connexion à la base de données
+    try {
+        $query = "DELETE FROM commande WHERE id_panier = :id_panier";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(['id_panier' => $_POST['id_panier']]);
 
-    // Prépare la requête SQL pour supprimer l'article du panier
-    $query = "DELETE FROM panier WHERE id_panier = :id_panier AND id_utilisateur = :id_utilisateur";
-    $stmt = $pdo->prepare($query);
+        // Supprimer également le panier
+        $query = "DELETE FROM panier WHERE id_panier = :id_panier AND id_utilisateur = :id_utilisateur";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([
+            'id_panier' => $_POST['id_panier'],
+            'id_utilisateur' => $_SESSION['id_utilisateur']
+        ]);
 
-    // Lier les paramètres
-    $stmt->bindParam(':id_panier', $id_panier, PDO::PARAM_INT);
-    $stmt->bindParam(':id_utilisateur', $_SESSION['id_utilisateur'], PDO::PARAM_INT);
-
-    // Exécuter la requête
-    if ($stmt->execute()) {
-        header("Location: ../page/panier.php"); // Redirige directement vers le panier
+        header("Location: ../page/panier.php");
         exit;
-    } else {
-        echo "Erreur lors de la suppression du produit.";
+    } catch (PDOException $e) {
+        echo "Erreur lors de la suppression: " . $e->getMessage();
     }
-
-    // Fermer la requête et la connexion
-    $stmt = null;
-    $pdo = null;
 } else {
     echo "Aucun produit spécifié pour la suppression.";
 }

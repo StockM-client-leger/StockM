@@ -24,11 +24,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ajouter_produit'])) {
         echo "Tous les champs doivent être remplis.";
     } else {
         // Requête d'insertion dans la base de données
-        $sql = "INSERT INTO produit (nom, description, prix, genre, lien, prix_promo, meilleur_vente) 
+        $sql = "INSERT INTO modele (nom, description, prix, genre, lien, prix_promo, meilleur_vente) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
 
+        // Après l'insertion du modèle
         if ($stmt->execute([$nom, $description, $prix, $genre, $lien, $prix_promo, $meilleur_vente])) {
+            $id_modele = $pdo->lastInsertId();
+            
+            // Insérer les tailles sélectionnées
+            if (isset($_POST['tailles']) && is_array($_POST['tailles'])) {
+                $sql_taille = "INSERT INTO produit (id_modele, id_taille) VALUES (?, ?)";
+                $stmt_taille = $pdo->prepare($sql_taille);
+                
+                foreach ($_POST['tailles'] as $taille) {
+                    $stmt_taille->execute([$id_modele, $taille]);
+                }
+            }
+            
             echo "Produit ajouté avec succès !";
             // Rediriger vers la page d'administration après l'ajout
             header("Location: ../page/admin.php");
@@ -37,7 +50,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ajouter_produit'])) {
             echo "Erreur lors de l'ajout du produit.";
         }
     }
-} else {
-    echo "Aucune donnée reçue.";
 }
 ?>
