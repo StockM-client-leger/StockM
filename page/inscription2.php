@@ -24,21 +24,32 @@
 
 
   <header>
-        
     <nav>
-        <div class="logo-container">
-            <a href="../index.php"><img src="../image/stockm.jpg.webp" alt="logo STOCKM" id="logo"/></a>
+        <div class="nav-section">
+            <div class="logo-container">
+                <a href="/Clientleger/index.php">
+                    <img src="/Clientleger/image/stockm.jpg.webp" alt="logo STOCKM" id="logo" />
+                </a>
+            </div>
+            <ul class="main-links">
+                <li><a href="/Clientleger/index.php"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="/Clientleger/page/homme.php">Homme</a></li>
+                <li><a href="/Clientleger/page/femme.php">Femme</a></li>
+                <li><a href="/Clientleger/page/enfant.php">Enfant</a></li>
+            </ul>
         </div>
-
-        <ul>
-            <li><a href="homme.php">Homme</a></li>
-            <li><a href="femme.php">Femme</a></li>
-            <li><a href="enfant.php">Enfant</a></li>
-        </ul>
-
-        <ul>
-            <li><a href="panier.php">Panier</a></li>
-            <li><a href="connexion2.php">Connexion</a></li>
+        
+        <ul class="user-links">
+            <li><a href="/Clientleger/page/panier.php"><i class="fas fa-shopping-cart"></i> Panier</a></li>
+            <?php if (isset($_SESSION['user_email'])): ?>
+                <li><a href="/Clientleger/page/profil.php"><i class="fas fa-user"></i> Mon Profil</a></li>
+                <li><a href="/Clientleger/php/deconnexion.php"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+                <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
+                    <li><a href="/Clientleger/page/admin.php"><i class="fas fa-cog"></i> Administration</a></li>
+                <?php endif; ?>
+            <?php else: ?>
+                <li><a href="/Clientleger/page/connexion2.php"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 </header>
