@@ -1,6 +1,36 @@
 <?php
 session_start();
 require_once '../php/db.php';
+
+// Debug
+error_log("Session existante: " . print_r($_SESSION, true));
+
+// Redirection si non connecté
+if (!isset($_SESSION['user_email']) || !isset($_SESSION['id_utilisateur'])) {
+    header("Location: /Clientleger/page/connexion2.php?redirect=" . urlencode($_SERVER['REQUEST_URI']));
+    exit();
+}
+
+try {
+    $query = "SELECT m.nom, m.prix, m.prix_promo, m.lien, c.id_taille, p.id_panier 
+              FROM panier p 
+              INNER JOIN commande c ON p.id_panier = c.id_panier 
+              INNER JOIN modele m ON c.id_modele = m.id_modele 
+              WHERE p.id_utilisateur = :id_utilisateur
+              ORDER BY p.dateh_panier DESC";
+    
+    $stmt = $pdo->prepare($query);
+    $stmt->execute(['id_utilisateur' => $_SESSION['id_utilisateur']]);
+    $produits_panier = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Debug
+    error_log("ID utilisateur: " . $_SESSION['id_utilisateur']);
+    error_log("Nombre de produits trouvés: " . count($produits_panier));
+    
+} catch (PDOException $e) {
+    error_log("Erreur SQL: " . $e->getMessage());
+    die("Une erreur est survenue lors de la récupération du panier.");
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +71,7 @@ require_once '../php/db.php';
                 if (isset($_SESSION['user_email'])) {
                     echo '<li><a href="/Clientleger/php/deconnexion.php">Déconnexion</a></li>';
                 } else {
-                    echo '<li><a href="/Clientleger/page/connexion.html">Connexion</a></li>';
+                    echo '<li><a href="/Clientleger/page/connexion2.php">Connexion</a></li>';
                 }
                 ?>
                 <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
@@ -52,47 +82,103 @@ require_once '../php/db.php';
     </header>
 
     <div class="cart-container">
-        <?php
-        if (!isset($_SESSION['id_utilisateur'])) {
-            die("Vous devez être connecté pour voir votre panier.");
-        }
-
-        $query = "SELECT m.nom, m.prix, m.prix_promo, m.lien, c.id_taille, p.id_panier 
-                  FROM panier p 
-                  INNER JOIN commande c ON p.id_panier = c.id_panier 
-                  INNER JOIN modele m ON c.id_modele = m.id_modele 
-                  WHERE p.id_utilisateur = :id_utilisateur";
-        $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':id_utilisateur', $_SESSION['id_utilisateur'], PDO::PARAM_INT);
-        $stmt->execute();
-
-        $produits_panier = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if ($produits_panier):
-            foreach ($produits_panier as $produit):
-        ?>
-            <div class="product-item">
-                <img src="<?php echo htmlspecialchars($produit['lien']); ?>" alt="<?php echo htmlspecialchars($produit['nom']); ?>" />
-                <div class="product-details">
-                    <h2><?php echo htmlspecialchars($produit['nom']); ?></h2>
-                    <p>Prix : <?php echo number_format($produit['prix'], 2, ',', ' ') . " €"; ?></p>
-                    <?php if ($produit['prix_promo'] > 0): ?>
-                        <p>Prix promo : <?php echo number_format($produit['prix_promo'], 2, ',', ' ') . " €"; ?></p>
-                    <?php endif; ?>
-                    <p>Taille : <?php echo htmlspecialchars($produit['id_taille']); ?></p>
+        <?php if (empty($produits_panier)): ?>
+            <p>Votre panier est vide.</p>
+        <?php else: ?>
+            <?php 
+            $total = 0;
+            foreach ($produits_panier as $produit): 
+                // Calcul du prix (promo ou normal)
+                $prix = ($produit['prix_promo'] > 0) ? $produit['prix_promo'] : $produit['prix'];
+                $total += $prix;
+            ?>
+                <div class="product-item">
+                    <img src="<?php echo htmlspecialchars($produit['lien']); ?>" alt="<?php echo htmlspecialchars($produit['nom']); ?>" />
+                    <div class="product-details">
+                        <h2><?php echo htmlspecialchars($produit['nom']); ?></h2>
+                        <p>Prix : <?php echo number_format($produit['prix'], 2, ',', ' ') . " €"; ?></p>
+                        <?php if ($produit['prix_promo'] > 0): ?>
+                            <p>Prix promo : <?php echo number_format($produit['prix_promo'], 2, ',', ' ') . " €"; ?></p>
+                        <?php endif; ?>
+                        <p>Taille : <?php echo htmlspecialchars($produit['id_taille']); ?></p>
+                    </div>
+                    <form action="../php/supprimer_du_panier.php" method="POST">
+                        <input type="hidden" name="id_panier" value="<?php echo $produit['id_panier']; ?>">
+                        <button type="submit">Supprimer</button>
+                    </form>
                 </div>
-                <form action="../php/supprimer_du_panier.php" method="POST">
-                    <input type="hidden" name="id_panier" value="<?php echo $produit['id_panier']; ?>">
-                    <button type="submit">Supprimer</button>
+            <?php endforeach; ?>
+
+            <div class="cart-summary">
+                <h3>Récapitulatif de votre panier</h3>
+                <p class="total">Total : <?php echo number_format($total, 2, ',', ' '); ?> €</p>
+                <form action="commande.php" method="POST" class="checkout-form">
+                    <input type="hidden" name="total" value="<?php echo $total; ?>">
+                    <button type="submit" class="btn-commander">Passer la commande</button>
                 </form>
             </div>
-        <?php
-            endforeach;
-        else:
-            echo "Votre panier est vide.";
-        endif;
-        ?>
+        <?php endif; ?>
     </div>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; <?php echo date('Y'); ?> STOCK M - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <style>
+    .cart-summary {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #f8f8f8;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .total {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #ecd90c;
+        text-align: right;
+        margin: 10px 0;
+    }
+
+    .btn-commander {
+        background-color: #ecd90c;
+        color: #2d2b2b;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1.1em;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-commander:hover {
+        background-color: #d4c30b;
+    }
+
+    .product-item {
+        margin-bottom: 15px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .product-details {
+        flex: 1;
+    }
+
+    .product-item img {
+        width: 100px;
+        height: auto;
+        border-radius: 4px;
+    }
+    </style>
 
 </body>
 </html>

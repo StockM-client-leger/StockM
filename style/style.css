@@ -901,7 +901,8 @@ button {
     margin: 40px auto;
     position: relative;
     overflow: hidden; /* Remis à hidden */
-    padding: 20px 60px; /* Augmenté le padding latéral pour les boutons */
+    padding: 20px px; /* Augmenté le padding latéral pour les boutons */
+    margin-bottom: 50px; /* Ajoute de l'espace pour le footer */
 }
 
 .carousel {
@@ -912,47 +913,43 @@ button {
 .carousel-controls {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    width: 100%;
     left: 0;
-    right: 0;
+    right: -100px;
+    transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
-    padding: 0;
-    z-index: 20;
+    padding: 0 10px;
+    z-index: 10;
     pointer-events: none;
 }
 
 .carousel-control {
-    position: absolute; /* Position absolue pour sortir du flux */
-    background: #ecd90c;
+    background: transparent;
     border: none;
+    pointer-events: auto;
+    cursor: pointer;
+    padding: 0;
+    font-size: 2.5em;
+    color: #ecd90c;
+    opacity: 0.7;
+    transition: all 0.3s ease;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5em;
-    color: #2d2b2b;
-    transition: all 0.3s ease;
-    pointer-events: auto;
-}
-
-/* Positionnement spécifique pour chaque bouton */
-#prevBtn {
-    left: 10px; /* Position à gauche */
-}
-
-#nextBtn {
-    right: 10px; /* Position à droite */
 }
 
 .carousel-control:hover {
-    background: #2d2b2b;
+    opacity: 1;
+    background: transparent;
+    border: none;
     color: #ecd90c;
-    border: 2px solid #ecd90c;
+    transform: scale(1.1);
+}
+
+.carousel-control i {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .carousel-item {
@@ -1047,5 +1044,296 @@ button {
 .carousel-title span {
     border-bottom: 3px solid #ecd90c;
     padding-bottom: 10px;
+}
+
+/* Footer styles simplifiés */
+.footer {
+    background: linear-gradient(0deg, rgba(45,43,43,1) 0%, rgba(236,217,12,0.1) 100%);
+    color: #ecd90c;
+    padding: 5px 0; /* Réduit la hauteur */
+    width: 100%;
+    position: fixed; /* Fixe le footer en bas */
+    bottom: 0; /* Place le footer tout en bas */
+    left: 0;
+    z-index: 100; /* Assure que le footer reste au-dessus des autres éléments */
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 0.8em; /* Réduit la taille de la police */
+}
+
+.footer-bottom p {
+    margin: 0;
+    padding: 0;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px; /* Réduit l'espacement */
+    padding: 0 20px;
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-section h3 {
+    font-size: 1em; /* Réduit la taille de la police */
+    margin-bottom: 10px; /* Réduit la marge */
+    position: relative;
+    padding-bottom: 5px; /* Réduit le padding */
+}
+
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 30px; /* Réduit la largeur de la ligne */
+    height: 2px;
+    background-color: #ecd90c;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Ajoute une marge nulle */
+}
+
+.footer-section ul li {
+    margin-bottom: 5px; /* Réduit la marge */
+    font-size: 0.9em; /* Réduit la taille de la police */
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #ecd90c;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 15px; /* Réduit la marge */
+    padding-top: 10px; /* Réduit le padding */
+    border-top: 1px solid rgba(236,217,12,0.2);
+    font-size: 0.9em; /* Réduit la taille de la police */
+}
+
+.social-links {
+    display: flex;
+    gap: 10px; /* Réduit l'espacement */
+    margin-top: 10px; /* Réduit la marge */
+}
+
+.social-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em; /* Réduit la taille de la police */
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #ecd90c;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Styles pour l'accordéon du footer */
+.footer-section h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 0;
+    margin: 0;
+    position: relative;
+}
+
+.footer-section h3::after {
+    content: '\f107'; /* Icône flèche bas de Font Awesome */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+    color: #ecd90c;
+    position: absolute;
+    right: 10px;
+}
+
+.footer-section h3.active::after {
+    transform: rotate(-180deg);
+}
+
+/* Ajustement de l'espacement pour le contenu */
+.footer-section ul, 
+.footer-section .social-links {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+}
+
+.footer-section ul.show, 
+.footer-section .social-links.show {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 10px;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: #ecd90c;
+    background-color: rgba(45, 43, 43, 0.9);
+    border-color: #ecd90c;
+}
+
+.alert-danger {
+    color: #ff0000;
+    background-color: rgba(255, 0, 0, 0.1);
+    border-color: #ff0000;
+}
+
+/* Styles pour la page de commande */
+.commande-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    color: #ecd90c;
+}
+
+.commande-container h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: #ecd90c;
+}
+
+.commande-form .form-section {
+    background-color: #2d2b2b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ecd90c;
+}
+
+.commande-form h2 {
+    color: #ecd90c;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.commande-form .form-group {
+    margin-bottom: 15px;
+}
+
+.commande-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ecd90c;
+}
+
+.commande-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ecd90c;
+    border-radius: 4px;
+    background-color: #333;
+    color: #ecd90c;
+}
+
+.commande-form .radio-group {
+    margin: 15px 0;
+}
+
+.commande-form .radio-group div {
+    margin: 10px 0;
+}
+
+.commande-form .radio-group label {
+    display: inline;
+    margin-left: 10px;
+    color: #ecd90c;
+}
+
+.commande-form .radio-group input[type="radio"] {
+    accent-color: #ecd90c;
+}
+
+.commande-form .recap {
+    background-color: #333;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.commande-form .recap p {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    color: #ecd90c;
+}
+
+.commande-form .recap .total {
+    font-size: 1.2em;
+    font-weight: bold;
+    border-top: 1px solid #ecd90c;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.btn-valider {
+    background-color: #ecd90c;
+    color: #2d2b2b;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    width: 100%;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-valider:hover {
+    background-color: #2d2b2b;
+    color: #ecd90c;
+    border: 1px solid #ecd90c;
+}
+
+/* Ajustements responsifs */
+@media (max-width: 768px) {
+    .commande-container {
+        padding: 10px;
+    }
+    
+    .commande-form .form-section {
+        padding: 15px;
+    }
 }
 

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../php/db.php'; // Assure-toi que ce chemin est correct
 
 // Vérifie si l'ID est bien passé dans l'URL
@@ -81,11 +82,10 @@ try {
             <ul>
                 <li><a href="panier.php">Panier</a></li>
                 <?php
-                session_start();
                 if (isset($_SESSION['user_email'])) {
                     echo '<li><a href="/Clientleger/php/deconnexion.php">Déconnexion</a></li>';
                 } else {
-                    echo '<li><a href="/Clientleger/page/connexion.html">Connexion</a></li>';
+                    echo '<li><a href="/Clientleger/page/connexion2.php">Connexion</a></li>';
                 }
                 ?>
                 <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
@@ -118,7 +118,7 @@ try {
                 <?php endif; ?>
 
                 <!-- Formulaire pour choisir la taille et ajouter au panier -->
-                <form action="../php/ajouter_au_panier.php" method="POST">
+                <form action="../php/ajouter_au_panier.php" method="POST" id="addToCartForm">
                     <h3>Choisir une taille :</h3>
                     <div class="sizes">
                         <?php if (!empty($tailles)): ?>
@@ -137,7 +137,9 @@ try {
                     <input type="hidden" name="id_modele" value="<?php echo htmlspecialchars($product['id_modele']); ?>">
 
                     <div class="actions">
-                        <button type="submit">Ajouter au panier</button>
+                        <button type="submit" onclick="return handleAddToCart(event)">
+                            Ajouter au panier
+                        </button>
                     </div>
                 </form>
             </div>
@@ -151,11 +153,82 @@ try {
         // Fonction pour mettre à jour la taille sélectionnée
         sizeButtons.forEach(button => {
             button.addEventListener('click', () => {
+                // Retirer la classe active de tous les boutons
+                sizeButtons.forEach(btn => btn.classList.remove('active'));
+                // Ajouter la classe active au bouton cliqué
+                button.classList.add('active');
                 // Mettre la taille choisie dans le champ caché
                 const size = button.getAttribute('data-size');
                 document.getElementById('selected-size').value = size;
             });
         });
+
+        function checkLogin(event) {
+            event.preventDefault();
+            if (!document.getElementById('selected-size').value) {
+                alert('Veuillez sélectionner une taille');
+                return false;
+            }
+            
+            window.location.href = '/Clientleger/page/connexion2.php?redirect=' + encodeURIComponent(window.location.href);
+            return false;
+        }
+
+        function handleAddToCart(event) {
+            event.preventDefault();
+            console.log('handleAddToCart appelé'); // Debug
+            
+            if (!document.getElementById('selected-size').value) {
+                alert('Veuillez sélectionner une taille');
+                return false;
+            }
+            
+            <?php if (!isset($_SESSION['user_email'])): ?>
+                if (confirm('Vous devez être connecté pour ajouter au panier. Voulez-vous vous connecter ?')) {
+                    window.location.href = '/Clientleger/page/connexion2.php?redirect=' + encodeURIComponent(window.location.href);
+                }
+                return false;
+            <?php else: ?>
+                const form = document.getElementById('addToCartForm');
+                const formData = new FormData(form);
+                
+                // Debug des données envoyées
+                for (let pair of formData.entries()) {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
+                
+                fetch('../php/ajouter_au_panier.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Réponse reçue:', data); // Debug
+                    if (data.error) {
+                        alert('Erreur : ' + data.message);
+                    } else {
+                        window.location.href = '/Clientleger/page/panier.php';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Une erreur est survenue lors de l\'ajout au panier');
+                });
+                return false;
+            <?php endif; ?>
+        }
     </script>
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; <?php echo date('Y'); ?> STOCK M - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <style>
+        .size-btn.active {
+            background-color: #ecd90c;
+            color: #2d2b2b;
+        }
+    </style>
 </body>
 </html>

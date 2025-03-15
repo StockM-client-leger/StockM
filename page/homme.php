@@ -44,7 +44,7 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php if (isset($_SESSION['user_email'])): ?>
                 <li><a href="/Clientleger/php/deconnexion.php">Déconnexion</a></li>
             <?php else: ?>
-                <li><a href="/Clientleger/page/connexion.html">Connexion</a></li>
+                <li><a href="/Clientleger/page/connexion2.php">Connexion</a></li>
             <?php endif; ?>
             <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
                 <li><a href="/Clientleger/page/admin.php">Ajouter un produit</a></li>
@@ -85,6 +85,12 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <p>Aucun produit disponible pour cette catégorie.</p>
     <?php endif; ?>
 </div>
+
+<footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; <?php echo date('Y'); ?> STOCK M - Tous droits réservés</p>
+        </div>
+    </footer>
 
 </body>
 </html>

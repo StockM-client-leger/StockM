@@ -21,6 +21,7 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STOCK M</title>
     <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="script/script.js" defer></script>
     <style>
         .content-container {
@@ -71,7 +72,7 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php if (isset($_SESSION['user_email'])): ?>
                     <li><a href="/Clientleger/php/deconnexion.php">Déconnexion</a></li>
                 <?php else: ?>
-                    <li><a href="/Clientleger/page/connexion.html">Connexion</a></li>
+                    <li><a href="/Clientleger/page/connexion2.php">Connexion</a></li>
                 <?php endif; ?>
                 <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
                     <li><a href="/Clientleger/page/admin.php">Ajouter un produit</a></li>
@@ -105,8 +106,12 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </div>
         <div class="carousel-controls">
-            <button class="carousel-control" id="prevBtn">&lt;</button>
-            <button class="carousel-control" id="nextBtn">&gt;</button>
+            <button class="carousel-control" id="prevBtn">
+                <i class="fas fa-chevron-circle-left"></i>
+            </button>
+            <button class="carousel-control" id="nextBtn">
+                <i class="fas fa-chevron-circle-right"></i>
+            </button>
         </div>
     </div>
 
@@ -154,6 +159,12 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }, 5000);
     });
     </script>
-</body>
 
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; <?php echo date('Y'); ?> STOCK M - Tous droits réservés</p>
+        </div>
+    </footer>
+
+</body>
 </html>

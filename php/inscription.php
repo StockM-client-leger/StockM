@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt_check->rowCount() > 0) {
         echo "L'email est déjà utilisé.";
-        header("Refresh: 0; url=/Clientleger/page/inscription.html");
+        header("Refresh: 0; url=/Clientleger/page/inscription2.php");
     } else {
         $sql = "INSERT INTO utilisateur (Nom, Prenom, email, mot_de_passe) VALUES (?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             if ($stmt->execute([$nom, $prenom, $email, $mot_de_passe])) {
                 echo "Inscription réussie!";
-                header("Refresh: 0; url=/Clientleger/page/connexion.html");
+                header("Refresh: 0; url=/Clientleger/page/connexion2.php");
                 exit();
             }
         } catch (PDOException $e) {

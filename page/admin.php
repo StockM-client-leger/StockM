@@ -2,8 +2,8 @@
 session_start();
 include('../php/db.php');
 
-// Vérifier si l'utilisateur est un admin
-if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
+// Vérifier si l'utilisateur est admin
+if (!isset($_SESSION['user_email']) || $_SESSION['user_email'] !== 'Admin@gmail.com') {
     header("Location: /Clientleger/index.php");
     exit();
 }
@@ -75,9 +75,96 @@ $produits = $stmt->fetchAll();
         });
     });
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('#ajouter-produit-form form');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validation du nom
+            const nom = document.getElementById('nom').value;
+            if (nom.length < 3) {
+                alert('Le nom du produit doit contenir au moins 3 caractères');
+                return;
+            }
+
+            // Validation de la description
+            const description = document.getElementById('description').value;
+            if (description.length < 10) {
+                alert('La description doit contenir au moins 10 caractères');
+                return;
+            }
+
+            // Validation du prix
+            const prix = parseFloat(document.getElementById('prix').value);
+            if (isNaN(prix) || prix <= 0) {
+                alert('Veuillez entrer un prix valide');
+                return;
+            }
+
+            // Validation du lien de l'image
+            const lien = document.getElementById('lien').value;
+            if (!isValidUrl(lien)) {
+                alert('Veuillez entrer une URL valide pour l\'image');
+                return;
+            }
+
+            // Validation du prix promo
+            const prixPromo = document.getElementById('prix_promo').value;
+            if (prixPromo !== '' && (isNaN(parseFloat(prixPromo)) || parseFloat(prixPromo) >= prix)) {
+                alert('Le prix promo doit être inférieur au prix normal');
+                return;
+            }
+
+            // Validation meilleur vente
+            const meilleurVente = document.getElementById('meilleur_vente').value;
+            if (meilleurVente !== '0' && meilleurVente !== '1') {
+                alert('La valeur meilleur vente doit être 0 ou 1');
+                return;
+            }
+
+            // Validation des tailles
+            const tailles = document.querySelectorAll('input[name="tailles[]"]:checked');
+            if (tailles.length === 0) {
+                alert('Veuillez sélectionner au moins une taille');
+                return;
+            }
+
+            // Si tout est valide, soumettre le formulaire
+            this.submit();
+        });
+
+        function isValidUrl(url) {
+            try {
+                new URL(url);
+                return true;
+            } catch {
+                return false;
+            }
+        }
+    });
+    </script>
 </head>
 
 <body>
+    <?php if (isset($_SESSION['success_message'])): ?>
+        <div class="alert alert-success">
+            <?php 
+                echo $_SESSION['success_message'];
+                unset($_SESSION['success_message']);
+            ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['error_message'])): ?>
+        <div class="alert alert-danger">
+            <?php 
+                echo $_SESSION['error_message'];
+                unset($_SESSION['error_message']);
+            ?>
+        </div>
+    <?php endif; ?>
 
     <div id="mouse-light"></div>
 
@@ -109,7 +196,7 @@ $produits = $stmt->fetchAll();
                 if (isset($_SESSION['user_email'])) {
                     echo '<li><a href="/Clientleger/php/deconnexion.php">Déconnexion</a></li>';
                 } else {
-                    echo '<li><a href="/Clientleger/page/connexion.html">Connexion</a></li>';
+                    echo '<li><a href="/Clientleger/page/connexion2.php">Connexion</a></li>';
                 }
                 ?>
                 <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
@@ -176,7 +263,10 @@ $produits = $stmt->fetchAll();
                         </div>
                     </div>
 
-                    <button type="submit" name="ajouter_produit" class="btn">Ajouter</button>
+                    <!-- Ajouter un champ caché pour identifier le formulaire -->
+                    <input type="hidden" name="ajouter_produit" value="1">
+
+                    <button type="submit" class="btn">Ajouter</button>
                 </form>
             </div>
         </section>
@@ -218,5 +308,10 @@ $produits = $stmt->fetchAll();
             </table>
         </div>
     </main>
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; <?php echo date('Y'); ?> STOCK M - Tous droits réservés</p>
+        </div>
+    </footer>
 </body>
 </html>
